@@ -12,7 +12,7 @@ namespace BallKing
 
         // cached
         private GameController _gameController;
-        private float _updateFrequency = 0.02f;
+        private float _updateFrequency = 0.1f;
         private float _updateTimer = 0.0f;
 
 
