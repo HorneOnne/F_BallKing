@@ -88,6 +88,9 @@ namespace BallKing
                 Destroy(ps.gameObject, 1.0f);
 
                 collision.GetComponent<Ball>().DestroyBall();
+                GameManager.Instance.ScoreUp();
+
+                SoundManager.Instance.PlaySound(SoundType.Hit, false);
             }
         }
     }

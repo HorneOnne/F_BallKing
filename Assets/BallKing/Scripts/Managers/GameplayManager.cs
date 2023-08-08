@@ -36,7 +36,7 @@ namespace BallKing
         private void Awake()
         {
             Instance = this;
-            GameManager.Instance.ResetTime();
+            GameManager.Instance.ResetScore();
         }
 
         private void OnEnable()
@@ -86,8 +86,9 @@ namespace BallKing
                     OnWin?.Invoke();
                     break;
                 case GameState.GAMEOVER:
-                    UIGameplayManager.Instance.CloseAll();
+                    GameManager.Instance.SetBestScore(GameManager.Instance.Score);
                     UIGameplayManager.Instance.DisplayGameoverMenu(true);
+                    SoundManager.Instance.PlaySound(SoundType.GameOver, false);
                     OnGameOver?.Invoke();
                     break;
                 case GameState.PAUSE:

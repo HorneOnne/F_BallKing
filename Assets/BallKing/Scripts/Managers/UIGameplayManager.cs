@@ -6,10 +6,8 @@ namespace BallKing
     {
         public static UIGameplayManager Instance { get; private set; }
 
-        //public UIGameplay UIGameplay;
-        //public UIPause UIPause;
+        public UIGameplay UIGameplay;
         public UIGameover UIGameover;
-
 
 
         private void Awake()
@@ -21,18 +19,18 @@ namespace BallKing
         private void Start()
         {
             CloseAll();
+            DisplayGameplayMenu(true);
         }
 
         public void CloseAll()
         {
-            DisplayPauseMenu(false);
             DisplayGameoverMenu(false);
-
         }
 
-        public void DisplayPauseMenu(bool isActive)
+
+        public void DisplayGameplayMenu(bool isActive)
         {
-            //UIPause.DisplayCanvas(isActive);
+            UIGameplay.DisplayCanvas(isActive);
         }
 
         public void DisplayGameoverMenu(bool isActive)

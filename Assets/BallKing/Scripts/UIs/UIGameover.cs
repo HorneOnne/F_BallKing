@@ -6,14 +6,11 @@ namespace BallKing
 {
     public class UIGameover : CustomCanvas
     {
-        [Header("Buttons")]       
-        [SerializeField] private Button _menuBtn;
+        [Header("Buttons")]             
         [SerializeField] private Button _replayBtn;
+        [SerializeField] private Button _homeBtn;
 
         [Header("Texts")]
-        [SerializeField] private TextMeshProUGUI _gameoverText;
-        [SerializeField] private TextMeshProUGUI _replayBtnText;
-        [SerializeField] private TextMeshProUGUI _menuBtnText;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private TextMeshProUGUI _recordText;
 
@@ -47,7 +44,7 @@ namespace BallKing
                 SoundManager.Instance.PlaySound(SoundType.Button, false);
             });
 
-            _menuBtn.onClick.AddListener(() =>
+            _homeBtn.onClick.AddListener(() =>
             {
                 Loader.Load(Loader.Scene.MenuScene);
 
@@ -58,17 +55,17 @@ namespace BallKing
         private void OnDestroy()
         {
             _replayBtn.onClick.RemoveAllListeners();
-            _menuBtn.onClick.RemoveAllListeners();
+            _homeBtn.onClick.RemoveAllListeners();
         }
 
         private void LoadBest()
         {
-            
+            _scoreText.text = GameManager.Instance.Score.ToString();
         }
 
         private void LoadScore()
         {
-
+            _recordText.text = GameManager.Instance.BestScore.ToString();
         }
 
     }

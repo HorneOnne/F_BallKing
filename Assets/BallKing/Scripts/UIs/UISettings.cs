@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace BallKing
 {
@@ -10,52 +11,61 @@ namespace BallKing
         [SerializeField] private Button _backBtn;
 
         [Header("Sliders")]
-        [SerializeField] private Slider _soundSlider;
-        [SerializeField] private Slider _musicSlider;
+        [SerializeField] private SwitchSliderHandler _soundSlider;
+        [SerializeField] private SwitchSliderHandler _musicSlider;
 
-        [Header("Texts")]
-        [SerializeField] private TextMeshProUGUI _settingsHeadingText;
-        [SerializeField] private TextMeshProUGUI _backBtnText;
-        [SerializeField] private TextMeshProUGUI _soundText;
-        [SerializeField] private TextMeshProUGUI _musicText;
-   
 
+        private void OnEnable()
+        {
+            _soundSlider.OnToggleClicked += OnToggleSound;
+            _musicSlider.OnToggleClicked += OnToggleMusic;
+        }
+
+       
+
+        private void OnDisable()
+        {
+            _soundSlider.OnToggleClicked -= OnToggleSound;
+            _musicSlider.OnToggleClicked -= OnToggleMusic;
+        }
 
 
         private void Start()
         {
-            _soundSlider.value = SoundManager.Instance.SFXVolume;
-            _musicSlider.value = SoundManager.Instance.BackgroundVolume;
+            Debug.Log(SoundManager.Instance.isMusicActive);
+            _soundSlider.ToggleOn = SoundManager.Instance.isSoundFXActive;
+            _musicSlider.ToggleOn = SoundManager.Instance.isMusicActive;
+            _soundSlider.UpdateUI();
+            _musicSlider.UpdateUI();
+
 
             _backBtn.onClick.AddListener(() =>
             {
-                UIManager.Instance.CloseAll();
-                UIManager.Instance.DisplayMainMenu(true);
+                UIManager.Instance.DisplaySettingsMenu(false);
 
                 SoundManager.Instance.PlaySound(SoundType.Button, false);
-            });
-
-            _soundSlider.onValueChanged.AddListener(OnSoundSliderChanged);
-            _musicSlider.onValueChanged.AddListener(OnMusicSliderChanged);           
+            });   
         }
 
         private void OnDestroy()
         {
             _backBtn.onClick.RemoveAllListeners();
-            _soundSlider.onValueChanged.RemoveAllListeners();
-            _musicSlider.onValueChanged.RemoveAllListeners();
         }
 
 
-        private void OnSoundSliderChanged(float value)
+        private void OnToggleSound(bool isToggleOn)
         {
-            SoundManager.Instance.SFXVolume = value;
+            SoundManager.Instance.isSoundFXActive = isToggleOn;
+            SoundManager.Instance.MuteSoundFX(!SoundManager.Instance.isSoundFXActive);
         }
 
-        private void OnMusicSliderChanged(float value)
+
+        private void OnToggleMusic(bool isToggleOn)
         {
-            SoundManager.Instance.BackgroundVolume = value;
-            SoundManager.Instance.UpdateBackgroundVolume();
+            SoundManager.Instance.isMusicActive = isToggleOn;
+            SoundManager.Instance.MuteBackground(!SoundManager.Instance.isMusicActive);
         }
+
+
     }
 }

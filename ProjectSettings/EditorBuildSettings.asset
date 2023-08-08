@@ -6,7 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BallKing/Scenes/MenuScene.unity
+    guid: 37156bff98fa52e479ed39df20346a9d
+  - enabled: 1
     path: Assets/BallKing/Scenes/GameplayScene.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 7a0f62bc4a3072841bb53cd1e706bfc1, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: efd8e5afc680605469af1719be8f4401, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: ea7f4d5e472649f4b89a46033903a1d5, type: 2}

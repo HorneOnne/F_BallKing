@@ -50,7 +50,9 @@ namespace BallKing
         {
             _soundTimerDictionary = new Dictionary<SoundType, float>();
             _soundTimerDictionary[SoundType.Collided] = 0.0f;
+            _soundTimerDictionary[SoundType.Hit] = 0.0f;
             _soundTimerDictionary[SoundType.Jump] = 0.0f;
+            _soundTimerDictionary[SoundType.Win] = 0.0f;
             _soundTimerDictionary[SoundType.GameOver] = 0.0f;
             _soundTimerDictionary[SoundType.Button] = 0.0f;
             _soundTimerDictionary[SoundType.ScoreUp] = 0.0f;
@@ -160,6 +162,8 @@ namespace BallKing
             {
                 case SoundType.Collided:
                     return CanSoundTypePlay(soundType, 0.1f);
+                case SoundType.Hit:
+                    return CanSoundTypePlay(soundType, 0.1f);
                 case SoundType.Jump:
                     return CanSoundTypePlay(soundType, 0.1f);
                 case SoundType.Button:
@@ -167,6 +171,8 @@ namespace BallKing
                 case SoundType.ScoreUp:
                     return CanSoundTypePlay(soundType, 0.01f);
                 case SoundType.GameOver:
+                    return CanSoundTypePlay(soundType, 0.01f);
+                case SoundType.Win:
                     return CanSoundTypePlay(soundType, 0.01f);
                 case SoundType.EMPTY:
                     return CanSoundTypePlay(soundType, 0.01f);
@@ -240,9 +246,11 @@ namespace BallKing
     public enum SoundType
     {
         Wait,
+        Hit,
         Collided,
         Jump,
         ScoreUp,
+        Win,
         GameOver,
         Button,
         EMPTY,

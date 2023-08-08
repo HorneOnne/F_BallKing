@@ -8,15 +8,16 @@ namespace BallKing
         public static event System.Action OnScoreUp;
 
         // SCORE & BEST
-        private float _time;
-        private float _record;
+        private int _score;
+        private int _bestScore;
 
 
         #region Properties
-        public float Time { get => _time; }
-        public float Record { get => _record; }
-
+        public int Score { get => _score; }
+        public int BestScore { get => _bestScore; }
         #endregion
+
+
         private void Awake()
         {
             // Check if an instance already exists, and destroy the duplicate
@@ -39,19 +40,26 @@ namespace BallKing
         }
 
 
-
-        public void ResetTime()
+        public void ScoreUp()
         {
-            this._time = 0; 
+            _score++;
+            OnScoreUp?.Invoke();
         }
 
-        public void SetRecord(float record)
+        public void ResetScore()
         {
-            this._time = record;
-            if (_record < record)
+            this._score = 0;
+        }
+
+        public void SetBestScore(int score)
+        {
+            this._score = score;
+            if (_bestScore < score)
             {
-                _record = record;
+                _bestScore = score;
             }
         }
+
+  
     }
 }
